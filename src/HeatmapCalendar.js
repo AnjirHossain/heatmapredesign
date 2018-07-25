@@ -1,85 +1,114 @@
-import React, { Component, Fragment } from 'react';
-import DayProjector from './DayProjector';
+import React, { Component } from 'react';
+import {
+  MILLISECONDS_IN_ONE_DAY,
+  DAYS_IN_WEEK,
+  DAY_LABELS,
+  YEAR_LABELS,
+  MONTH_LABELS,
+  TEMP_VAL_CACHE,
+  months
+} from './consts';
+import Select from './common/Select';
+import Calendar from './Calendar';
 
-const SIDE_LENGTH = 30;
-const GUTTER_SPACE = 3;
+const TEMP_VALUE_CACHE = [];
 
-class HeatmapProjector extends Component {
+class HeatmapCalendar extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      sideLength: SIDE_LENGTH,
-      gutterSpace: GUTTER_SPACE
+      currentMonth: 'Jan',
+      currentYear: 2018,
+      valueCache: TEMP_VALUE_CACHE
     };
+
+    this.handleMonthChange = this.handleMonthChange.bind(this);
+    this.handleUnitMouseOver = this.handleUnitMouseOver.bind(this);
   }
-  getProcessedDays = (endDate, vals) => {
-    let days = Array.from(Array(endDate - 1), (val, index) => {
-      return {
-        date: index + 1,
-        value: vals[index] || 0
-      }
-    })
+  handleMonthChange = e => {
+    e.preventDefault();
 
-    return days;
+    this.setState({
+      currentMonth: e.target.value
+    });
   }
-  renderGrid = () => {
-    let { props } = this;
+  handleYearChange = e => {
+    e.preventDefault();
 
-    let sideLength = props.sideLength;
-    let gutterSpace = props.gutterSpace;
-    let colorBank = props.colorsForVals;
-    let colNum = 0;
-    let rowNum = 0;
-    let days = this.getProcessedDays(props.endDate, props.values);
-
-    return days.map(datum => {
-      let date = datum.date;
-      let value = datum.value;
-
-      colNum = date % 7;
-
-      if (colNum === 0) {
-        rowNum += 1;
-      }
-
-      let frame = sideLength + gutterSpace;
-      let dayX = colNum * frame;
-      let dayY = rowNum * frame;
-      let dayLabelX = dayX + 5;
-      let dayLabelY = dayY + 20;
-      let className = colorBank[value] || 'blank';
-
-      return <DayProjector sideLength={sideLength}
-        x={dayX}
-        y={dayY}
-        labelX={dayLabelX}
-        labelY={dayLabelY}
-        date={date || ''}
-        value={value || ''}
-        className={className} />;
-    })
+    this.setState({
+      currentYear: e.target.value
+    });
   }
+  handleUnitMouseOver = e => {
+    e.preventDefault();
+  }
+  handleUnitClick = e => {
+    e.preventDefault()
+  }
+
+
+  getDaysForMonth = month => {
+    if (!month) {
+      throw new Error('Invalid month name or key');
+    }
+
+    const dayCache = Array.from(new Array(parseInt(month.days)), (val, index) => index + 1);
+
+    return dayCache || [];
+  }
+
+  getDayOffsetBeforeFirstDay = month => {
+    if (!month) {
+      throw new Error('Invalid month name or key');
+    }
+
+    const offsetDaysCache = Array.from( new Array(parseInt(month.offset)), (val, index) => ' ');
+
+    return offsetDaysCache;
+  }
+
+
   render = () => {
-    let { sideLength } = this.props;
-    let frame = `${sideLength * 7}`;
-    let viewBoxFrame = frame * 1.2;
+    let { state } = this;
+    let {
+      valueCache,
+      currentMonth,
+      currentYear
+    } = state;
+
+    let monthMeta = months[currentMonth];
+
+    let monthCache = {
+      entries: this.getDayOffsetBeforeFirstDay(monthMeta).concat(this.getDaysForMonth(monthMeta))
+    };
 
     return <div style={{
-      position: 'absolute',
-      top: 100,
-      left: 500
+      display: 'flex',
+      flexFlow: 'column wrap',
     }}>
-      <svg width={frame}
-        height={frame}
-        viewBox={`0 0 ${viewBoxFrame} ${viewBoxFrame}`}>
-        { /* month grid */ }
-        <g>
-          { this.renderGrid() }
-        </g>
-      </svg>
+      {/* month picker */}
+      <div style={{
+        display: 'flex',
+        flexFlow: 'row wrap'
+      }}>
+        <Select value={currentMonth}
+          options={MONTH_LABELS}
+          onChange={this.handleMonthChange} />
+        <Select value={currentYear}
+          options={YEAR_LABELS}
+          onChange={this.handleYearChange} />
+      </div>
+      {/* heatmap calender */}
+      <Calendar month={monthCache}
+        year={currentYear}
+        dayLabels={DAY_LABELS}
+        onUnitMouseOver={this.handleUnitMouseOver}
+        onUnitMouseLeave={this.handleUnitMouseLeave}
+        onUnitClick={this.handleUnitClick}
+        valueCache={TEMP_VAL_CACHE} />
     </div>;
   }
 }
 
-export default HeatmapProjector;
+export default HeatmapCalendar;

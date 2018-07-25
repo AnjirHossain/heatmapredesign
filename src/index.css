@@ -31,5 +31,11 @@
   font-family: sans-serif;
   font-size: 15px;
   font-weight: 500;
+}
+
+.dateLabel {
+  font-family: sans-serif;
+  font-size: 15px;
+  font-weight: 500;
   fill: #fff;
 }
