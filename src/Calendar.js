@@ -19,7 +19,7 @@ const Calendar = ({
 		{/* Day projection units */}
 		<Grid>
 			{
-				month.entries.map((day, i) => {
+				month.daysCache.map((day, i) => {
 					return <span key={i} style={{
 						padding: '10px',
 						textAlign: 'left',

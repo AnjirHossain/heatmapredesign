@@ -77,12 +77,6 @@ class HeatmapCalendar extends Component {
       currentYear
     } = state;
 
-    let monthMeta = months[currentMonth];
-
-    let monthCache = {
-      entries: this.getDayOffsetBeforeFirstDay(monthMeta).concat(this.getDaysForMonth(monthMeta))
-    };
-
     return <div style={{
       display: 'flex',
       flexFlow: 'column wrap',
@@ -100,7 +94,7 @@ class HeatmapCalendar extends Component {
           onChange={this.handleYearChange} />
       </div>
       {/* heatmap calender */}
-      <Calendar month={monthCache}
+      <Calendar month={months[currentMonth]}
         year={currentYear}
         dayLabels={DAY_LABELS}
         onUnitMouseOver={this.handleUnitMouseOver}

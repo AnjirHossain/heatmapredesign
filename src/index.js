@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import HeatmapCalendar from './HeatmapCalendar';
 import registerServiceWorker from './registerServiceWorker';
+import { initSeedData } from './helpers';
 
 let testVals = {};
 
@@ -14,23 +15,22 @@ for (let i = 15; i < 25; i++) {
   testVals[i + 1] = i - 14;
 }
 
-let colorBank = {
-  '0': 'blank',
-  '1': 'scale-1',
-  '2': 'scale-2',
-  '3': 'scale-3',
-  '4': 'scale-4',
-  '5': 'scale-5'
-};
+initSeedData((err, data) => {
+  if (err) {
+    throw new Error(err);
+  }
 
-let calendar = <HeatmapCalendar
-  sideLength={50}
-  startDate={1}
-  endDate={31}
-  values={testVals}
-  gutterSpace={3}
-  colorsForVals={colorBank}
-/>
+  const calendar = <HeatmapCalendar
+    monthCache={data}
+    sideLength={50}
+    startDate={1}
+    endDate={31}
+    values={{}}
+    gutterSpace={3}
+    colorsForVals={{}}
+  />;
 
-ReactDOM.render(calendar, document.getElementById('root'));
+  ReactDOM.render(calendar, document.getElementById('root'));
+});
+
 registerServiceWorker();
