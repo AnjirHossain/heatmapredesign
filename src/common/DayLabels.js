@@ -10,6 +10,7 @@ const DayLabels = ({
 				return <span key={'dayKey:'+day} style = {{
 						padding: '10px',
 						textAlign: 'left',
+						fontWeight: 900
 					}}>
 					{day}
 				</span>;

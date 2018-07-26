@@ -1,9 +1,10 @@
 import React from 'react';
 
-const Row = ({ children }) => (
+const Row = ({ children, customStyles }) => (
     <div style={{
-      display: 'flex',
-      flexFlow: 'row wrap',
+        ...customStyles,
+        display: 'flex',
+        flexFlow: 'row wrap',
     }}>
         {children}
     </div>

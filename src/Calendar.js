@@ -22,8 +22,8 @@ const Calendar = ({
 				month.daysCache.map((day, i) => {
 					return <span key={i} style={{
 						padding: '10px',
-						textAlign: 'left',
-						color: valueCache && !!valueCache[day] ? 'green' : 'black'
+						textAlign: 'center',
+						color: '#000'
 					}}>
 						{day || ''}
 					</span>
