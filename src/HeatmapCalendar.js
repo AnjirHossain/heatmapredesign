@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import 'antd/dist/antd.css';
+import { Select } from 'antd';
 
-import Select from './common/Select';
 import Col from './common/Col';
 import Row from './common/Row';
 import Calendar from './Calendar';
 import Legend from './Legend';
+
+const Option = Select.Option;
 
 const MONTH_LABELS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const DAY_LABELS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -34,11 +36,11 @@ class HeatmapCalendar extends Component {
     text: null,
     place: 'top'
   })
-  handleMonthChange = e => {
-    e.preventDefault();
+  handleMonthChange = val => {
+    if (!val) throw new Error('Invalid selection for month change');
 
     this.setState({
-      currentMonth: e.target.value
+      currentMonth: val
     });
   }
   handleUnitMouseOver = e => {
@@ -65,9 +67,14 @@ class HeatmapCalendar extends Component {
     return <Col>
       {/* month picker */}
       <Row>
-        <Select value={currentMonth}
+        <Select style={{
+          fontFamily: 'Atlas-Typewriter-Web-Regular'
+        }}
+          value={currentMonth}
           options={MONTH_LABELS}
-          onChange={this.handleMonthChange} />
+          onChange={this.handleMonthChange}>
+          {MONTH_LABELS.map((label, i) => <Option key={`month:${i}`} value={label}>{label}</Option>)}
+        </Select>
       </Row>
       {/* heatmap calender */}
       <Calendar month={monthCache[currentMonth]}
