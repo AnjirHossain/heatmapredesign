@@ -1,6 +1,6 @@
 import React from 'react';
 import Row from './common/Row';
-import Tooltip from './common/Tooltip';
+import { Tooltip } from 'antd';
 
 const legendLabelStyles = {
 	margin: '10px',
@@ -24,12 +24,19 @@ const Legend = ({
 	<Row customStyles={rowCustomStyles}>
 		<span style={legendLabelStyles}>Less</span>
 		{
-			legendKeys ? Object.keys(legendKeys).map((entry, i) => <span style={{
-				...legendKeyStyles,
-				backgroundColor: entry
-			}}
-			key={i + 'entry'}
-			data-tip='tooltip'></span>) : null
+			legendKeys ? Object.keys(legendKeys).map((entry, i) => {
+				const tooltipTitle = `${legendKeys[entry][0]} - ${legendKeys[entry][1]} % task completion`;
+				const tooltipKey = i + 'entry';
+
+				return <Tooltip key={tooltipKey}
+					title={tooltipTitle}>
+					<span style={{
+						...legendKeyStyles,
+						backgroundColor: entry
+					}}>
+					</span>
+				</Tooltip>
+			}) : null
 		}
 		<span style={legendLabelStyles}>
 			More

@@ -27,8 +27,6 @@ initSeedData((err, data) => {
     endDate={31}
     values={{}}
     gutterSpace={3}
-    colorsForVals={{}}
-    unitLabel='%'
   />;
 
   ReactDOM.render(calendar, document.getElementById('root'));

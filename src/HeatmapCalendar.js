@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ReactTooltip from 'react-tooltip'
+import 'antd/dist/antd.css';
 
 import Select from './common/Select';
 import Col from './common/Col';
@@ -22,14 +22,18 @@ class HeatmapCalendar extends Component {
 
     this.state = {
       currentMonth: 'Jan',
-      legendTooltipText: null,
-      unitLabel: props.unitLabel || 'units'
+      legendTipMetaData: props.legend
     };
 
     this.handleMonthChange = this.handleMonthChange.bind(this);
     this.handleUnitMouseOver = this.handleUnitMouseOver.bind(this);
   }
 
+  getTooltipDefaultProps = () => ({
+    show: false,
+    text: null,
+    place: 'top'
+  })
   handleMonthChange = e => {
     e.preventDefault();
 
@@ -50,8 +54,7 @@ class HeatmapCalendar extends Component {
       props
     } = this;
     let {
-      currentMonth,
-      currentYear
+      currentMonth
     } = state;
     let {
       monthCache,
@@ -68,7 +71,6 @@ class HeatmapCalendar extends Component {
       </Row>
       {/* heatmap calender */}
       <Calendar month={monthCache[currentMonth]}
-        year={currentYear}
         dayLabels={DAY_LABELS}
         onUnitMouseOver={this.handleUnitMouseOver}
         onUnitMouseLeave={this.handleUnitMouseLeave}
@@ -76,8 +78,7 @@ class HeatmapCalendar extends Component {
         valueCache={[]} />
       {/* heatmap measurement legend */}
       <Legend legendKeys={legendKeys || DEFAULT_LEGEND}
-        onKeyMouseOver={onLegendKeyMouseOver || this.handleLegendMouseOver}
-        tooltipMeta={this.state.tooltipMeta} />
+        onKeyMouseOver={onLegendKeyMouseOver || this.handleLegendMouseOver} />
     </Col>;
   }
 }

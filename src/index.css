@@ -7,7 +7,7 @@
 }
 
 body {
-  font-family: 'Atlas-Typewriter-Web-Regular', Arial, Helvetica, sans-serif;
+  font-family: 'Atlas-Typewriter-Web-Regular', Arial, Helvetica, sans-serif !important;
 }
 
 input,
