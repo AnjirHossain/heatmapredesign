@@ -15,17 +15,18 @@ for (let i = 15; i < 25; i++) {
   testVals[i + 1] = i - 14;
 }
 
-initSeedData((err, data) => {
+initSeedData((err, seedData) => {
   if (err) {
     throw new Error(err);
   }
 
   const calendar = <HeatmapCalendar
-    monthCache={data}
+    monthCache={seedData.dates}
     sideLength={50}
     startDate={1}
     endDate={31}
-    values={{}}
+    valueCache={seedData.values}
+    colorCache={seedData.colorsForValues}
     gutterSpace={3}
   />;
 

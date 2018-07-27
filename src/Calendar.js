@@ -1,6 +1,7 @@
 import React from 'react';
 import DayLabels from './common/DayLabels';
 import Grid from './common/Grid';
+import ProjectionUnit from './ProjectionUnit';
 
 const Calendar = ({
 	dayLabels,
@@ -9,8 +10,11 @@ const Calendar = ({
 	onUnitMouseOver,
 	onUnitMouseLeave,
 	onUnitClick,
-	valueCache
+	valuesForMonth,
+	colorsForMonth
 }) => {
+	console.log()
+
 	return <div style={{
 		width: '350px'
 	}}>
@@ -20,13 +24,10 @@ const Calendar = ({
 		<Grid>
 			{
 				month.daysCache.map((day, i) => {
-					return <span key={i} style={{
-						padding: '10px',
-						textAlign: 'center',
-						color: '#000'
-					}}>
-						{day || ''}
-					</span>
+					return <ProjectionUnit projectionColor={day === ' ' ? null : colorsForMonth[day]}
+						day={day}
+						tooltipTitle={`9/100 tasks completed`}
+						key={i} />;
 				})
 			}
 		</Grid>

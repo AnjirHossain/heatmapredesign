@@ -60,14 +60,21 @@ class HeatmapCalendar extends Component {
     } = state;
     let {
       monthCache,
+      valueCache,
+      colorCache,
       legendKeys,
       onLegendKeyMouseOver
     } = props;
 
     return <Col>
       {/* month picker */}
-      <Row>
+      <Row customStyles={{
+        alignItems: 'center',
+        padding: '10px'
+      }}>
+        <h4 style={{ fontWeight: '900' }}>Productivity % 2018</h4>
         <Select style={{
+          margin: '0px 10px',
           fontFamily: 'Atlas-Typewriter-Web-Regular'
         }}
           value={currentMonth}
@@ -82,7 +89,8 @@ class HeatmapCalendar extends Component {
         onUnitMouseOver={this.handleUnitMouseOver}
         onUnitMouseLeave={this.handleUnitMouseLeave}
         onUnitClick={this.handleUnitClick}
-        valueCache={[]} />
+        valuesForMonth={valueCache[currentMonth] || {}}
+        colorsForMonth={colorCache[currentMonth] || {}} />
       {/* heatmap measurement legend */}
       <Legend legendKeys={legendKeys || DEFAULT_LEGEND}
         onKeyMouseOver={onLegendKeyMouseOver || this.handleLegendMouseOver} />
