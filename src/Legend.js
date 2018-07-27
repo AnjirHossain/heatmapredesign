@@ -7,7 +7,8 @@ const legendLabelStyles = {
 	fontWeight: '900'
 };
 const rowCustomStyles = {
-	alignItems: 'center'
+	alignItems: 'center',
+	padding: '10px 0px'
 };
 const legendKeyStyles = {
 	width: '25px',

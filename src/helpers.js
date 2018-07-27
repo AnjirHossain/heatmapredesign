@@ -4,12 +4,11 @@ import colorsforvalues2018 from './consts/colorsforvalues2018.json';
 
 export const initSeedData = onInitComplete => {
 	try {
-		const seedData = {
+		onInitComplete(null, {
 			dates: dates2018,
 			values: values2018,
 			colorsForValues: colorsforvalues2018
-		}
-		onInitComplete(null, seedData);
+		});
 	} catch (seedDataError) {
 		onInitComplete(seedDataError);
 	}

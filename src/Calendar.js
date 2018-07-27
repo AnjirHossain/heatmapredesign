@@ -5,16 +5,10 @@ import ProjectionUnit from './ProjectionUnit';
 
 const Calendar = ({
 	dayLabels,
-	year,
 	month,
-	onUnitMouseOver,
-	onUnitMouseLeave,
-	onUnitClick,
 	valuesForMonth,
 	colorsForMonth
 }) => {
-	console.log()
-
 	return <div style={{
 		width: '350px'
 	}}>
@@ -24,9 +18,13 @@ const Calendar = ({
 		<Grid>
 			{
 				month.daysCache.map((day, i) => {
-					return <ProjectionUnit projectionColor={day === ' ' ? null : colorsForMonth[day]}
+					let dayIsEmpty = day === ' ';
+					let tooltipTitle = dayIsEmpty ? null : `${valuesForMonth[day]}% of tasks completed`;
+					let projectionColor = dayIsEmpty ? null : colorsForMonth[day];
+
+					return <ProjectionUnit projectionColor={projectionColor}
 						day={day}
-						tooltipTitle={`9/100 tasks completed`}
+						tooltipTitle={tooltipTitle}
 						key={i} />;
 				})
 			}

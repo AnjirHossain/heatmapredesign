@@ -6,7 +6,7 @@ const ProjectionUnit = ({
 	day,
 	tooltipTitle
 }) => (
-  <Tooltip key={`projectionKey:${day}`} title={tooltipTitle}>
+  	<Tooltip autoAdjustOverflow={true} key={`projectionKey:${day}`} title={tooltipTitle}>
 		<span style={{
 			cursor: 'pointer',
 			padding: '10px',

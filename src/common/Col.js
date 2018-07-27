@@ -1,7 +1,8 @@
 import React from 'react';
 
-const Col = ({ children }) => (
+const Col = ({ children, customStyles }) => (
     <div style={{
+      ...customStyles,
       display: 'flex',
       flexFlow: 'column wrap',
     }}>

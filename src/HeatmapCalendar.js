@@ -12,12 +12,13 @@ const Option = Select.Option;
 const MONTH_LABELS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const DAY_LABELS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const DEFAULT_LEGEND = {
-  '#fff8e1': [0,20],
-  '#ffe082': [20,40],
-  '#ffca28': [40,60],
-  '#ffb300': [60,80],
-  '#FF6F00': [80, 100]
+  '#FFE57F': [0, 20],
+  '#FFC400': [20, 40],
+  '#FFA000': [40, 60],
+  '#FF6F00': [60, 80],
+  '#DD2C00': [80, 100]
 };
+
 class HeatmapCalendar extends Component {
   constructor(props) {
     super(props);
@@ -66,7 +67,10 @@ class HeatmapCalendar extends Component {
       onLegendKeyMouseOver
     } = props;
 
-    return <Col>
+    return <Col customStyles={{
+      alignItems: 'center',
+      justifyContent: 'center'
+    }}>
       {/* month picker */}
       <Row customStyles={{
         alignItems: 'center',
